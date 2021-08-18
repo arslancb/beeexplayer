@@ -9,3 +9,9 @@ Clone the repo and follow below steps.
 1. Run `npm install`
 2. Grunt if not installed Run `npm install -g grunt-cli`
 3. Run `grunt`
+
+
+JS Embed Code
+```
+<script src="https://cdn.jsdelivr.net/gh/arslancb/beeexplayer@master/beeexplayer.min.js"></script>
+```
