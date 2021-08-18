@@ -14,28 +14,52 @@ JS Embed Code
 
 BeeExplayer Supports Multiple Sprites. Following Syntax is supported
 
-```html
 
-<script>
-  var player = BeeExPlayer('my-video');
 
-  // setup 160x90 thumbnails in sprite.jpg, 1 per second
-  player.spriteThumbnails({
-    url: 'https://example.com/sprite.jpg',
-    width: 160,
-    height: 90
-  });
-</script>
+### Options
+There is only single property provided currently: `sprites`
+
+```js
+const options = {
+  sprites: [
+    {
+      url: 'https://example.com/video-1.png',
+      start: 0,
+      duration: 10,
+      interval: 2,
+      width: 160,
+      height: 90,
+    },
+    {
+      url: 'https://example.com/video-2.png',
+      start: 10,
+      duration: 20,
+      interval: 2,
+      width: 160,
+      height: 90,
+    },
+  ]
+}
 ```
 
-### Configuration
 
-option | type | mandatory | default | description
------- | ---- | --------- | ------- | -----------
-`url`  | String | &#10004; |   | Sprite image location.
-`width` | Integer | &#10004; |  | Width of a thumbnail in pixels.
-`height` | Integer | &#10004; |   | Height of a thumbnail in pixels.
-`interval` | Number |  | `1` | Interval between thumbnail frames in seconds.
-`responsive` | Integer |  | `600` | Width of player in pixels below which thumbnails are reponsive. Set to `0` to disable.
+|Option name|Datatype|Default value|Description|
+|--------|------------|----|----|
+|`url`|`string`|`''`|URL of thumbnail sprite image
+|`start`|`number`|`0`|Start point of time of the video section that this sprite image is covering
+|`duration`|`number`|`0`|Duration of the video section that this sprite image is covering
+|`width`|`number`|`0`|Width of preview thumbnail (`px`)
+|`height`|`number`|`0`|Height of preview thumbnail (`px`)
+|`interval`|`number`|`0`|Interval between each preview thumbnails of the video section that this sprite image is covering
+
+You can use multiple sprite images in case that preview thumbnails for entire video is divided into several chunks. Just pass them as array of sprites, and the module will handle it on behalf of you.
+
+### Rules to follow
+To make things happen preperly, there are some rules to follow:
+
+1. **Each `duration` of video sections should not overlap each other.** For example, if your first sprite image covers [0:00 ~ 10:00] and your second sprite image covers [5:00 ~ 15:00], then there is an overlap between them([5:00 ~ 10:00]). The module will emit warning on browser console if it catches any overlaps.
+2. **`width` and `height` should be provided for each sprites.** If not, even if the images are loaded those will not be displayed as expected.
+3. **`duration` should be multiple of `interval`.** From `start` point of time, at every `interval` seconds, the preview thumbnail will be displayed, so to display corresponding preview with hovering time correctly, follow this rule.
+
 
 
