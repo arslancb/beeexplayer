@@ -62,4 +62,5 @@ To make things happen preperly, there are some rules to follow:
 3. **`duration` should be multiple of `interval`.** From `start` point of time, at every `interval` seconds, the preview thumbnail will be displayed, so to display corresponding preview with hovering time correctly, follow this rule.
 
 
-
+## Purge CDN
+https://purge.jsdelivr.net/gh/arslancb/beeexplayer@latest/beeexplayer.min.js
